@@ -1,43 +1,116 @@
+/* 🔹 BASE */
 body {
-  font-family: Arial;
+  font-family: Arial, sans-serif;
   background: #f4f4f4;
-  padding: 20px;
+  margin: 0;
+  padding: 10px;
+}
+
+/* 🔹 TABS */
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
 }
 
 .tabs button {
-  margin-right: 10px;
-  padding: 8px;
+  flex: 1;
+  padding: 10px;
+  font-size: 14px;
+  border: none;
+  background: #ddd;
+  border-radius: 6px;
+  cursor: pointer;
 }
 
+.tabs button:hover {
+  background: #ccc;
+}
+
+/* 🔹 CONTENIDO */
 .tab {
   display: none;
-  margin-top: 20px;
+  margin-top: 15px;
 }
 
 .active {
   display: block;
 }
 
+/* 🔹 TARJETAS */
 .card {
   background: white;
-  padding: 10px;
+  padding: 12px;
   margin: 10px 0;
-  border-radius: 8px;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  width: 100%;
+  box-sizing: border-box;
 }
+
+/* 🔹 ESTADO PAGADO */
+.pagado {
+  background: #c8e6c9;
+}
+
+/* 🔹 INPUTS Y BOTONES */
+input, button {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  padding: 10px;
+  margin: 5px 0;
+  font-size: 16px; /* evita zoom en iPhone */
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+/* 🔹 DROPDOWN BUSCADOR */
 .dropdown {
   border: 1px solid #ccc;
   max-height: 150px;
   overflow-y: auto;
   background: white;
   position: absolute;
-  width: 250px;
+  width: 100%; /* 🔥 antes 250px */
+  z-index: 10;
+  border-radius: 6px;
 }
 
 .opcion {
-  padding: 8px;
+  padding: 10px;
   cursor: pointer;
 }
 
 .opcion:hover {
   background: #f0f0f0;
+}
+
+/* 🔹 GRUPOS */
+.grupo {
+  background: #e3f2fd;
+  padding: 8px;
+  border-radius: 6px;
+  margin-top: 15px;
+}
+
+/* 🔹 RESPONSIVE EXTRA */
+@media (max-width: 600px) {
+
+  body {
+    padding: 8px;
+  }
+
+  h2, h3 {
+    font-size: 18px;
+  }
+
+  .tabs button {
+    font-size: 12px;
+    padding: 8px;
+  }
+
+  .card {
+    padding: 10px;
+  }
 }
