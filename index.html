@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Comedor Escolar</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<h1>🍽️ Comedor Escolar</h1>
+
+<div class="tabs">
+  <button onclick="mostrarTab('padres')">Padres</button>
+  <button onclick="mostrarTab('educadoras')">Educadoras</button>
+  <button onclick="loginCocinera()">Cocinera</button>
+  <button onclick="loginDirectora('directora')">Directora</button>
+</div>
+
+<!-- PADRES -->
+<div id="padres" class="tab active">
+  <h2>Padres</h2>
+
+  <input type="text" id="buscarAlumno" placeholder="Buscar alumno...">
+<div id="resultados" class="dropdown"></div>
+
+  <div id="menu"></div>
+
+  <button onclick="hacerPedido()">Pedir</button>
+</div>
+
+<!-- EDUCADORAS -->
+<div id="educadoras" class="tab">
+  <h2>Educadoras</h2>
+  <div id="grupos"></div>
+  <div id="vistaGrupo"></div>
+</div>
+
+<!-- COCINERA -->
+<div class="tab" id="cocinera">
+  <h2>Cocinera</h2>
+
+  <input id="platillo1" placeholder="Opción 1">
+  <input id="platillo2" placeholder="Opción 2">
+  <button onclick="guardarMenu()">Guardar menú</button>
+
+  <div id="listaPedidos"></div>
+</div>
+
+<!-- DIRECTORA -->
+<div class="tab" id="directora">
+  <h2>Directora</h2>
+
+  <p>Total pedidos: <span id="totalPedidos">0</span></p>
+  <button onclick="borrarPedidos()">Borrar pedidos</button>
+</div>
+
+
+<!--<input type="file" id="archivoCSV">
+#<button onclick="subirCSV()">Subir alumnos</button>-->
+
+<script type="module" src="app.js"></script>
+</body>
+</html>

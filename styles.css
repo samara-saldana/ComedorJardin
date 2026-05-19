@@ -1,0 +1,43 @@
+body {
+  font-family: Arial;
+  background: #f4f4f4;
+  padding: 20px;
+}
+
+.tabs button {
+  margin-right: 10px;
+  padding: 8px;
+}
+
+.tab {
+  display: none;
+  margin-top: 20px;
+}
+
+.active {
+  display: block;
+}
+
+.card {
+  background: white;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 8px;
+}
+.dropdown {
+  border: 1px solid #ccc;
+  max-height: 150px;
+  overflow-y: auto;
+  background: white;
+  position: absolute;
+  width: 250px;
+}
+
+.opcion {
+  padding: 8px;
+  cursor: pointer;
+}
+
+.opcion:hover {
+  background: #f0f0f0;
+}
