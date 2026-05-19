@@ -47,6 +47,7 @@ onSnapshot(doc(db, "config", "menu"), snap => {
   if (snap.exists()) {
     menuActual = snap.data();
     renderMenu();
+    renderPedidos(); // 🔥 IMPORTANTE
   }
 });
 
@@ -139,6 +140,12 @@ window.togglePagado = async function(id, estado) {
 function renderPedidos() {
   const cont = document.getElementById("listaPedidos");
 
+  // 🛑 EVITAR EJECUCIÓN SIN DATOS
+  if (!menuActual.opcion1 || !menuActual.opcion2 || pedidos.length === 0) {
+    cont.innerHTML = "<p>Cargando pedidos...</p>";
+    return;
+  }
+
   let html = "";
 
   const grupos = [...new Set(pedidos.map(p => p.grupo))];
@@ -146,17 +153,19 @@ function renderPedidos() {
   grupos.forEach(grupo => {
     const pedidosGrupo = pedidos.filter(p => p.grupo === grupo);
 
-    const opcion1 = pedidosGrupo.filter(p => p.platillo === menuActual.opcion1).length;
-    const opcion2 = pedidosGrupo.filter(p => p.platillo === menuActual.opcion2).length;
+    const opcion1Count = pedidosGrupo.filter(p => p.platillo === menuActual.opcion1).length;
+    const opcion2Count = pedidosGrupo.filter(p => p.platillo === menuActual.opcion2).length;
 
     html += `
-      <h3>Grupo ${grupo}</h3>
-      <p>${menuActual.opcion1}: ${opcion1} | ${menuActual.opcion2}: ${opcion2}</p>
+      <div class="grupo">
+        <strong>Grupo ${grupo}</strong><br>
+        ${menuActual.opcion1}: ${opcion1Count} | ${menuActual.opcion2}: ${opcion2Count}
+      </div>
     `;
 
     pedidosGrupo.forEach(p => {
       html += `
-        <div class="card">
+        <div class="card ${p.pagado ? "pagado" : ""}">
           <input type="checkbox" ${p.pagado ? "checked" : ""}
             onchange="togglePagado('${p.id}', this.checked)">
           ${p.alumno} - ${p.platillo}
