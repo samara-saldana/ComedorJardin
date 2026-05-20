@@ -258,14 +258,24 @@ function verGrupo(grupo) {
   let html = `<h3>Grupo ${grupo}</h3>`;
 
   html += `<h4>${menuActual.opcion1}</h4>`;
-  opcion1Lista.forEach(p => {
-    html += `<div>${p.alumno}</div>`;
-  });
+   opcion1Lista.forEach(p => {
+  html += `
+    <div class="card">
+      ${p.alumno}
+      ${p.pagado ? "(Pagado ✅)" : "(Pendiente ❌)"}
+    </div>
+  `;
+});
 
   html += `<h4>${menuActual.opcion2}</h4>`;
   opcion2Lista.forEach(p => {
-    html += `<div>${p.alumno}</div>`;
-  });
+  html += `
+    <div class="card">
+      ${p.alumno}
+      ${p.pagado ? "(Pagado ✅)" : "(Pendiente ❌)"}
+    </div>
+  `;
+});
 
   cont.innerHTML = html;
 }
