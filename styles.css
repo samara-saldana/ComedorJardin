@@ -4,6 +4,9 @@ body {
   background: #f4f4f4;
   margin: 0;
   padding: 10px;
+  width: 100%;
+  overflow-x: hidden;
+  box-sizing: border-box;
 }
 
 /* 🔹 TABS */
@@ -71,10 +74,10 @@ input, button {
   max-height: 150px;
   overflow-y: auto;
   background: white;
-  position: absolute;
-  width: 100%; /* 🔥 antes 250px */
+  width: 100%;
   z-index: 10;
   border-radius: 6px;
+  box-sizing: border-box;
 }
 
 .opcion {
@@ -112,5 +115,36 @@ input, button {
 
   .card {
     padding: 10px;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 18px;
+}
+
+button {
+  min-height: 48px;
+}
+
+@media (max-width: 600px) {
+
+  body {
+    padding: 12px;
+  }
+
+  .tabs button {
+    font-size: 16px;
+  }
+
+  .card {
+    font-size: 16px;
+  }
+
+  input {
+    font-size: 16px;
   }
 }
