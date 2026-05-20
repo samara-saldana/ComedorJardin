@@ -237,7 +237,7 @@ function renderGrupos() {
   const cont = document.getElementById("grupos");
   cont.innerHTML = "";
 
-  const grupos = ["1A","1B","2A","2B","3A"];
+  const grupos = ["1A","2A","2B","3A","3B"];
 
   grupos.forEach(g => {
     const btn = document.createElement("button");
