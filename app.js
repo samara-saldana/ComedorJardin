@@ -91,23 +91,34 @@ window.seleccionarAlumno = function(nombre) {
 // =======================
 
 window.hacerPedido = async function() {
-  const platillo = document.querySelector('input[name="platillo"]:checked')?.value;
+
+  const platillo =
+    document.querySelector('input[name="platillo"]:checked')?.value;
 
   if (!alumnoSeleccionado || !platillo) {
     return alert("Faltan datos");
   }
 
-  await addDoc(collection(db, "pedidos"), {
+  // 🔥 fecha simple del día
+  const hoy = new Date().toISOString().split("T")[0];
+
+  // 🔥 ID único por alumno por día
+  const pedidoId = `${alumnoSeleccionado.nombre}_${hoy}`;
+
+  await setDoc(doc(db, "pedidos", pedidoId), {
+
     alumno: alumnoSeleccionado.nombre,
     grupo: alumnoSeleccionado.grupo,
     platillo,
     pagado: false,
+
+    fechaTexto: hoy,
     fecha: new Date()
+
   });
 
-  alert("Pedido guardado");
+  alert("Pedido guardado ✅");
 };
-
 // =======================
 // 📋 MENÚ
 // =======================
