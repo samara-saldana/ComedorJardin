@@ -41,6 +41,7 @@ onSnapshot(collection(db, "pedidos"), snap => {
 
   document.getElementById("totalPedidos").textContent = pedidos.length;
   renderPedidos();
+  renderDirectora();
 });
 
 onSnapshot(doc(db, "config", "menu"), snap => {
@@ -111,7 +112,8 @@ window.hacerPedido = async function() {
     grupo: alumnoSeleccionado.grupo,
     platillo,
     pagado: false,
-
+    pagado: false,
+comio: false,
     fechaTexto: hoy,
     fecha: new Date()
 
@@ -119,6 +121,7 @@ window.hacerPedido = async function() {
 
   alert("Pedido guardado ✅");
 };
+
 // =======================
 // 📋 MENÚ
 // =======================
@@ -148,6 +151,15 @@ window.togglePagado = async function(id, estado) {
   await setDoc(doc(db, "pedidos", id), { pagado: estado }, { merge: true });
 };
 
+window.toggleComio = async function(id, estado) {
+
+  await setDoc(
+    doc(db, "pedidos", id),
+    { comio: estado },
+    { merge: true }
+  );
+};
+
 function renderPedidos() {
   const cont = document.getElementById("listaPedidos");
 
@@ -164,9 +176,15 @@ function renderPedidos() {
   grupos.forEach(grupo => {
     const pedidosGrupo = pedidos.filter(p => p.grupo === grupo);
 
-    const opcion1Count = pedidosGrupo.filter(p => p.platillo === menuActual.opcion1).length;
-    const opcion2Count = pedidosGrupo.filter(p => p.platillo === menuActual.opcion2).length;
+    const opcion1Count = pedidosGrupo.filter(p =>
+  p.platillo === menuActual.opcion1 &&
+  p.pagado
+).length;
 
+const opcion2Count = pedidosGrupo.filter(p =>
+  p.platillo === menuActual.opcion2 &&
+  p.pagado
+).length;
     html += `
       <div class="grupo">
         <strong>Grupo ${grupo}</strong><br>
@@ -197,7 +215,42 @@ window.borrarPedidos = async function() {
 
   const snap = await getDocs(collection(db, "pedidos"));
   snap.forEach(d => deleteDoc(d.ref));
+
 };
+function renderDirectora() {
+
+  const total = pedidos.length;
+
+  const pagados = pedidos.filter(p => p.pagado);
+
+  const noPagados = pedidos.filter(p =>
+  !p.pagado && p.comio
+);
+
+  const deuda = pedidos.filter(p =>
+  !p.pagado && p.comio
+);
+
+  document.getElementById("directoraInfo").innerHTML = `
+
+    <div class="card">
+      <h3>Total pedidos: ${total}</h3>
+      <h3>Pagados: ${pagados.length}</h3>
+      <h3>No pagó y sí comió: ${noPagados.length}</h3>
+    </div>
+
+    <div class="card">
+      <h3>No han pagado y si comieron:</h3>
+
+      ${noPagados.map(p => `
+        <div>
+          ${p.alumno} (${p.grupo})
+        </div>
+      `).join("")}
+
+    </div>
+  `;
+}
 
 // =======================
 // 🔒 LOGIN DESDE FIREBASE
@@ -271,21 +324,57 @@ function verGrupo(grupo) {
   html += `<h4>${menuActual.opcion1}</h4>`;
    opcion1Lista.forEach(p => {
   html += `
-    <div class="card">
-      ${p.alumno}
-      ${p.pagado ? "(Pagado ✅)" : "(Pendiente ❌)"}
-    </div>
-  `;
+  <div class="card">
+
+    ${p.alumno}
+
+    ${p.pagado
+      ? "(Pagado ✅)"
+      : "(Pendiente ❌)"
+    }
+
+    <br>
+
+    <label>
+      <input
+        type="checkbox"
+        ${p.comio ? "checked" : ""}
+        onchange="toggleComio('${p.id}', this.checked)"
+      >
+
+      Sí comió
+    </label>
+
+  </div>
+`;
 });
 
   html += `<h4>${menuActual.opcion2}</h4>`;
   opcion2Lista.forEach(p => {
   html += `
-    <div class="card">
-      ${p.alumno}
-      ${p.pagado ? "(Pagado ✅)" : "(Pendiente ❌)"}
-    </div>
-  `;
+  <div class="card">
+
+    ${p.alumno}
+
+    ${p.pagado
+      ? "(Pagado ✅)"
+      : "(Pendiente ❌)"
+    }
+
+    <br>
+
+    <label>
+      <input
+        type="checkbox"
+        ${p.comio ? "checked" : ""}
+        onchange="toggleComio('${p.id}', this.checked)"
+      >
+
+      Sí comió
+    </label>
+
+  </div>
+`;
 });
 
   cont.innerHTML = html;
@@ -332,3 +421,5 @@ window.subirCSV = function() {
 
   reader.readAsText(file);
 };
+
+
