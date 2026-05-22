@@ -2,6 +2,7 @@
 <html lang="es">
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta charset="UTF-8">
   <title>Comedor Escolar</title>
   <link rel="stylesheet" href="styles.css">
@@ -53,12 +54,15 @@
 
   <p>Total pedidos: <span id="totalPedidos">0</span></p>
   <button onclick="borrarPedidos()">Borrar pedidos</button>
+  <div id="directoraInfo"></div>
 </div>
 
 
 <!--<input type="file" id="archivoCSV">
-#<button onclick="subirCSV()">Subir alumnos</button>-->
-
+#<button onclick="subirCSV()">Subir alumnos</button>
+<button onclick="limpiarDuplicados()">
+  Limpiar duplicados
+</button>-->
 <script type="module" src="app.js"></script>
 </body>
 </html>
