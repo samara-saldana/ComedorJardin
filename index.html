@@ -1,68 +1,221 @@
+<
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta charset="UTF-8">
+
+  <!-- Hace que la app se adapte correctamente a celulares -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>Comedor Escolar</title>
-  <link rel="stylesheet" href="styles.css">
+
+  <link rel="stylesheet" href="styles.css?v=20260926">
 </head>
+
 <body>
 
-<h1>🍽️ Comedor Escolar</h1>
+  <h1>🍽️ Comedor Escolar</h1>
 
-<div class="tabs">
-  <button onclick="mostrarTab('padres')">Padres</button>
-  <button onclick="mostrarTab('educadoras')">Educadoras</button>
-  <button onclick="loginCocinera()">Cocinera</button>
-  <button onclick="loginDirectora('directora')">Directora</button>
-</div>
+  <!-- ========================= -->
+  <!-- NAVEGACIÓN -->
+  <!-- ========================= -->
 
-<!-- PADRES -->
-<div id="padres" class="tab active">
-  <h2>Padres</h2>
+  <div class="tabs">
+    <button onclick="mostrarTab('padres')">
+      Padres
+    </button>
 
-  <input type="text" id="buscarAlumno" placeholder="Buscar alumno...">
-<div id="resultados" class="dropdown"></div>
+    <button onclick="mostrarTab('educadoras')">
+      Educadoras
+    </button>
 
-  <div id="menu"></div>
+    <button onclick="loginCocinera()">
+      Cocinera
+    </button>
 
-  <button onclick="hacerPedido()">Pedir</button>
-</div>
-
-<!-- EDUCADORAS -->
-<div id="educadoras" class="tab">
-  <h2>Educadoras</h2>
-  <div id="grupos"></div>
-  <div id="vistaGrupo"></div>
-</div>
-
-<!-- COCINERA -->
-<div class="tab" id="cocinera">
-  <h2>Cocinera</h2>
-
-  <input id="platillo1" placeholder="Opción 1">
-  <input id="platillo2" placeholder="Opción 2">
-  <button onclick="guardarMenu()">Guardar menú</button>
-
-  <div id="listaPedidos"></div>
-</div>
-
-<!-- DIRECTORA -->
-<div class="tab" id="directora">
-  <h2>Directora</h2>
-
-  <p>Total pedidos: <span id="totalPedidos">0</span></p>
-  <button onclick="borrarPedidos()">Borrar pedidos</button>
-  <div id="directoraInfo"></div>
-</div>
+    <button onclick="loginDirectora()">
+      Directora
+    </button>
+  </div>
 
 
-<!--<input type="file" id="archivoCSV">
-#<button onclick="subirCSV()">Subir alumnos</button>
-<button onclick="limpiarDuplicados()">
-  Limpiar duplicados
-</button>-->
-<script type="module" src="app.js"></script>
+  <!-- ========================= -->
+  <!-- PADRES -->
+  <!-- ========================= -->
+
+  <div id="padres" class="tab active">
+
+    <h2>Padres</h2>
+
+    <input
+      type="text"
+      id="buscarAlumno"
+      placeholder="Buscar alumno..."
+      autocomplete="off"
+    >
+
+    <div
+      id="resultados"
+      class="dropdown">
+    </div>
+
+    <div id="menu"></div>
+
+    <button onclick="hacerPedido()">
+      Pedir
+    </button>
+
+  </div>
+
+
+  <!-- ========================= -->
+  <!-- EDUCADORAS -->
+  <!-- ========================= -->
+
+  <div id="educadoras" class="tab">
+
+    <h2>Educadoras</h2>
+
+    <!-- Los botones de los grupos se generan desde Firebase -->
+    <div id="grupos"></div>
+
+    <!-- Aquí aparece la lista del grupo seleccionado -->
+    <div id="vistaGrupo"></div>
+
+  </div>
+
+
+  <!-- ========================= -->
+  <!-- COCINERA -->
+  <!-- ========================= -->
+
+  <div id="cocinera" class="tab">
+
+    <h2>Cocinera</h2>
+
+    <h3>Menú del día</h3>
+
+    <input
+      id="platillo1"
+      type="text"
+      placeholder="Opción 1"
+    >
+
+    <input
+      id="platillo2"
+      type="text"
+      placeholder="Opción 2"
+    >
+
+    <button onclick="guardarMenu()">
+      Guardar menú
+    </button>
+
+    <h3>Pedidos del día</h3>
+
+    <div id="listaPedidos"></div>
+
+  </div>
+
+
+  <!-- ========================= -->
+  <!-- DIRECTORA -->
+  <!-- ========================= -->
+
+  <div id="directora" class="tab">
+
+    <h2>Directora</h2>
+
+
+    <!-- RESUMEN DE PEDIDOS -->
+
+    <section class="card">
+
+      <h3>Resumen del día</h3>
+
+      <p>
+        Total de pedidos:
+        <strong id="totalPedidos">0</strong>
+      </p>
+
+      <!-- Aquí tu JS muestra pagados,
+           pendientes y adeudos -->
+      <div id="directoraInfo"></div>
+
+    </section>
+
+
+    <!-- BORRAR PEDIDOS -->
+
+    <section class="card">
+
+      <h3>Pedidos del día</h3>
+
+      <p>
+        Usa esta opción únicamente cuando quieras
+        eliminar los pedidos registrados.
+      </p>
+
+      <button onclick="borrarPedidos()">
+        Borrar pedidos
+      </button>
+
+    </section>
+
+
+    <!-- ========================= -->
+    <!-- ACTUALIZAR ALUMNOS -->
+    <!-- ========================= -->
+
+    <section class="card">
+
+      <h3>Actualizar alumnos</h3>
+
+      <p>
+        Selecciona el archivo CSV correspondiente
+        al nuevo ciclo escolar.
+      </p>
+
+      <p>
+        El archivo debe contener las columnas
+        <strong>nombre</strong> y
+        <strong>grupo</strong>.
+      </p>
+
+      <input
+        type="file"
+        id="archivoCSV"
+        accept=".csv,text/csv"
+        onchange="previsualizarCSV()"
+      >
+
+      <!-- Aquí aparecerá el número de alumnos
+           y la distribución por grupos -->
+      <div id="resumenCSV"></div>
+
+      <button
+        id="btnActualizarAlumnos"
+        onclick="reemplazarAlumnos()"
+        disabled
+      >
+        Reemplazar lista de alumnos
+      </button>
+
+    </section>
+
+  </div>
+
+
+  <!-- ========================= -->
+  <!-- JAVASCRIPT -->
+  <!-- ========================= -->
+
+  <script
+    type="module"
+    src="app.js?v=20260926">
+  </script>
+
 </body>
+
 </html>

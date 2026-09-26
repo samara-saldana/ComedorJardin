@@ -1,25 +1,61 @@
-/* 🔹 BASE */
+
+/* ========================================
+   CONFIGURACIÓN GENERAL
+======================================== */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 18px;
+}
+
 body {
   font-family: Arial, sans-serif;
   background: #f4f4f4;
   margin: 0;
-  padding: 10px;
+  padding: 12px;
   width: 100%;
   overflow-x: hidden;
-  box-sizing: border-box;
 }
 
-/* 🔹 TABS */
+
+/* ========================================
+   TÍTULOS
+======================================== */
+
+h1 {
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+h2 {
+  margin-top: 10px;
+}
+
+h3 {
+  margin-top: 15px;
+  margin-bottom: 10px;
+}
+
+
+/* ========================================
+   NAVEGACIÓN / TABS
+======================================== */
+
 .tabs {
   display: flex;
   flex-wrap: wrap;
-  gap: 5px;
+  gap: 6px;
+  width: 100%;
 }
 
 .tabs button {
-  flex: 1;
+  flex: 1 1 120px;
   padding: 10px;
-  font-size: 14px;
+  font-size: 16px;
   border: none;
   background: #ddd;
   border-radius: 6px;
@@ -30,121 +66,279 @@ body {
   background: #ccc;
 }
 
-/* 🔹 CONTENIDO */
+
+/* ========================================
+   CONTENIDO DE LAS PESTAÑAS
+======================================== */
+
 .tab {
   display: none;
   margin-top: 15px;
+  width: 100%;
 }
 
-.active {
+.tab.active {
   display: block;
 }
 
-/* 🔹 TARJETAS */
+
+/* ========================================
+   TARJETAS
+======================================== */
+
 .card {
   background: white;
-  padding: 12px;
-  margin: 10px 0;
+  padding: 14px;
+  margin: 12px 0;
   border-radius: 10px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   width: 100%;
-  box-sizing: border-box;
 }
 
-/* 🔹 ESTADO PAGADO */
+
+/* Pedido pagado */
+
 .pagado {
   background: #c8e6c9;
 }
 
-/* 🔹 INPUTS Y BOTONES */
-input, button {
+
+/* ========================================
+   INPUTS Y BOTONES
+======================================== */
+
+input,
+button {
   width: 100%;
   max-width: 100%;
-  box-sizing: border-box;
-  padding: 10px;
-  margin: 5px 0;
-  font-size: 16px; /* evita zoom en iPhone */
+  padding: 11px;
+  margin: 6px 0;
+  font-size: 16px;
   border-radius: 6px;
   border: 1px solid #ccc;
 }
 
-/* 🔹 DROPDOWN BUSCADOR */
+button {
+  min-height: 48px;
+  cursor: pointer;
+}
+
+
+/* Botones deshabilitados */
+
+button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+
+/* ========================================
+   BUSCADOR DE ALUMNOS
+======================================== */
+
 .dropdown {
   border: 1px solid #ccc;
-  max-height: 150px;
+  max-height: 180px;
   overflow-y: auto;
   background: white;
   width: 100%;
   z-index: 10;
   border-radius: 6px;
-  box-sizing: border-box;
 }
 
 .opcion {
-  padding: 10px;
+  padding: 12px;
   cursor: pointer;
+  border-bottom: 1px solid #eee;
+}
+
+.opcion:last-child {
+  border-bottom: none;
 }
 
 .opcion:hover {
   background: #f0f0f0;
 }
 
-/* 🔹 GRUPOS */
+
+/* ========================================
+   GRUPOS
+======================================== */
+
 .grupo {
   background: #e3f2fd;
-  padding: 8px;
+  padding: 10px;
   border-radius: 6px;
   margin-top: 15px;
 }
 
-/* 🔹 RESPONSIVE EXTRA */
+
+/* ========================================
+   PANEL DE COCINERA
+======================================== */
+
+#listaPedidos {
+  width: 100%;
+}
+
+
+/* ========================================
+   PANEL DE EDUCADORAS
+======================================== */
+
+#grupos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 15px;
+}
+
+#grupos button {
+  flex: 1 1 100px;
+}
+
+#vistaGrupo {
+  width: 100%;
+}
+
+
+/* ========================================
+   PANEL DE DIRECTORA
+======================================== */
+
+#directoraInfo {
+  width: 100%;
+}
+
+
+/* ========================================
+   ACTUALIZACIÓN DE ALUMNOS
+======================================== */
+
+#archivoCSV {
+  background: white;
+  cursor: pointer;
+}
+
+
+/* Resumen que aparece después de
+   seleccionar el CSV */
+
+#resumenCSV {
+  margin-top: 10px;
+}
+
+#resumenCSV .card {
+  background: #f8f8f8;
+  border: 1px solid #ddd;
+  box-shadow: none;
+}
+
+
+/* Botón para reemplazar alumnos */
+
+#btnActualizarAlumnos {
+  margin-top: 10px;
+}
+
+
+/* ========================================
+   CHECKBOXES
+
+   Evita que los checkbox hereden el
+   width: 100% de los inputs normales.
+======================================== */
+
+input[type="checkbox"],
+input[type="radio"] {
+  width: auto;
+  max-width: none;
+  margin-right: 8px;
+  padding: 0;
+}
+
+
+/* ========================================
+   TELÉFONOS
+======================================== */
+
 @media (max-width: 600px) {
 
-  body {
-    padding: 8px;
+  html {
+    font-size: 17px;
   }
-
-  h2, h3 {
-    font-size: 18px;
-  }
-
-  .tabs button {
-    font-size: 12px;
-    padding: 8px;
-  }
-
-  .card {
-    padding: 10px;
-  }
-}
-
-* {
-  box-sizing: border-box;
-}
-
-html {
-  font-size: 18px;
-}
-
-button {
-  min-height: 48px;
-}
-
-@media (max-width: 600px) {
 
   body {
     padding: 12px;
   }
 
-  .tabs button {
-    font-size: 16px;
+  h1 {
+    font-size: 24px;
   }
+
+  h2 {
+    font-size: 21px;
+  }
+
+  h3 {
+    font-size: 19px;
+  }
+
+
+  /* Navegación */
+
+  .tabs {
+    gap: 5px;
+  }
+
+  .tabs button {
+    flex: 1 1 calc(50% - 5px);
+    font-size: 16px;
+    padding: 10px 6px;
+  }
+
+
+  /* Tarjetas */
 
   .card {
+    padding: 12px;
     font-size: 16px;
   }
 
-  input {
+
+  /* Formularios */
+
+  input,
+  button {
     font-size: 16px;
   }
+
+
+  /* Grupos de educadoras */
+
+  #grupos button {
+    flex: 1 1 calc(50% - 8px);
+  }
+
+}
+
+
+/* ========================================
+   TELÉFONOS MUY PEQUEÑOS
+======================================== */
+
+@media (max-width: 360px) {
+
+  body {
+    padding: 8px;
+  }
+
+  h1 {
+    font-size: 21px;
+  }
+
+  .tabs button {
+    font-size: 15px;
+  }
+
 }
